@@ -17,6 +17,14 @@ int readLine(int _FileHandle,char *_DstBuf)
         return 0;
     }
     int newLineIndex = strfind(buf,'\n');
+    int endStringIndex = strfind(buf,'\0');
+    if(endStringIndex>-1)
+    {
+        if((newLineIndex>endStringIndex)||newLineIndex<0)
+        {
+            newLineIndex=endStringIndex;
+        }
+    }
     lseek(_FileHandle,newLineIndex-readCount+1,SEEK_CUR);
     strcpy(_DstBuf,substr(buf,0,newLineIndex));
     return newLineIndex;

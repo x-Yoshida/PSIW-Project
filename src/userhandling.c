@@ -6,6 +6,7 @@ int login(int argc,char** argv)
     {
         consoleWriteLine("Please enter username");
         consoleWriteLine("./projekt username");
+        exit(1);
     }
     int file = open("config.txt",O_RDONLY);
     char buf[1024];
@@ -14,7 +15,7 @@ int login(int argc,char** argv)
         consoleWriteLine(buf);
         if(!strcmp(buf,argv[1]))
         {
-            consoleWriteLine("Yes");
+            //consoleWriteLine("Yes");
             readWord(file,buf,' ');
             readWord(file,buf,' ');
             close(file);
@@ -22,7 +23,7 @@ int login(int argc,char** argv)
         }
         skipLine(file);
     }
-    consoleWriteLine("Bruh");
+    //consoleWriteLine("Bruh");
     close(file);
     return 0;
 }

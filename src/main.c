@@ -5,9 +5,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 
 #include "stringexpended.h"
 #include "iohandling.h"
@@ -43,6 +46,25 @@ int main(int argc, char** argv)
         {
             while(!(waitpid(child,&status,WNOHANG)))
             {
+                int file = open("config.txt",O_RDONLY);
+                for(int n = readLine(file,buf);n>0;n = readLine(file,buf))
+                {
+                    char senderName[1024];
+                    char senderKey[1024];
+                    strcpy(senderName,buf);
+                    if(!strcmp(substr(senderName,0,strfind(senderName,' ')),name))
+                    {
+                        continue;
+                    }
+                    strcpy(senderKey,buf);
+                    if(strfind(senderKey,':')==-1)
+                    {
+                        continue;
+                    }
+                    substr(senderKey,strfind(senderKey,':')+2,strlen(senderKey));
+                    consoleWriteSeperated(' ',3,senderName,senderKey,"\n");
+                    sleep(2);
+                }
                 
 
             }
@@ -63,8 +85,8 @@ int main(int argc, char** argv)
             }
             consoleWriteLine("Child");
         }
-        intToStr(buf,key);
-        consoleWriteLine(buf);
+        //intToStr(buf,key);
+        //consoleWriteLine(buf);
     }
 
 
