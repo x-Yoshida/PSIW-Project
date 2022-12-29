@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build debug",
+            "type": "shell",
+            "command": "g++ -c '${workspaceFolder}/src/*.cpp' -g -Wall -m64 -I '${workspaceFolder}/include'"
+        },
+        {
+            "label": "compile debug",
+            "type": "shell",//'-Wl,--stack,SIZE' 4 [4194304] 16 [16777216] 32[33554432] 128 [134217728]
+            "command": "g++ *.o -o '${workspaceFolder}/bin/debug/main/main.exe' -L C:/mingw64/lib -lmingw32",
+            "dependsOn": "build debug",
+            "group": "build"
+        },
+        {
+            "label": "build release",
+            "type": "shell",
+            "command": "g++ -c '${workspaceFolder}/src/*.cpp' -O3 -Wall -m64 -I '${workspaceFolder}/include'"
+        },
+        {
+            "label": "compile release",
+            "type": "shell",
+            "command": "g++ *.o -o '${workspaceFolder}/bin/release/main/main.exe' -L C:/mingw64/lib -lmingw32",
+            "dependsOn": "build release",
+            "group": "build"
+        }
+    ]
+}
