@@ -28,6 +28,9 @@ int main(int argc, char** argv)
     */
     if(key)
     {
+        char name[1024];
+        memset(name,0,1024);
+        strcpy(name,argv[1]); 
         int status;
         int child = fork();//Succes -> Parent child = Pid | Child child = 0 # Error Parent child = -1
         if(child<0)
@@ -40,7 +43,7 @@ int main(int argc, char** argv)
         {
             while(!(waitpid(child,&status,WNOHANG)))
             {
-
+                
 
             }
             consoleWriteLine("Parent");
