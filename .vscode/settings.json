@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "string.h": "c",
+        "fcntl.h": "c",
+        "signal.h": "c",
+        "unistd.h": "c",
+        "cstdlib": "c",
+        "typeinfo": "c",
+        "stdlib.h": "c",
+        "stat.h": "c",
+        "crtdefs.h": "c",
+        "stdbool.h": "c",
+        "types.h": "c",
+        "stringexpended.h": "c",
+        "filehandling.h": "c",
+        "iohandling.h": "c",
+        "stdarg.h": "c"
+    }
+}
