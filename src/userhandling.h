@@ -1,12 +1,19 @@
 #pragma once
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
 #include "iohandling.h"
 
 typedef struct BufElement
 {
-    int mtype;
+    long mtype;
     char message[1024];
-}
+} BufElement;
 
 int login(int argc,char** argv);
+int msgInit(int key);
+void sendMsg(int msgid,int key, BufElement *buf);
+void reciveMsg(int key,BufElement *buf);
 
