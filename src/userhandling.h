@@ -12,8 +12,10 @@ typedef struct BufElement
     char message[1024];
 } BufElement;
 
+int findKey(char* usrName);
 int login(int argc,char** argv);
 int msgInit(int key);
-void sendMsg(int msgid,int key, BufElement *buf);
+void msgClose(int msgid);
+void sendMsg(int msgid, BufElement *buf);
 void reciveMsg(int key,BufElement *buf);
 

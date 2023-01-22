@@ -84,23 +84,6 @@ void consoleWrite(char* _Buf)
     write(0,_Buf,strlen(_Buf));
 }
 
-void consoleWriteSeperated(char separator,int num,...)
-{
-    va_list valist;
-    va_start(valist,num);
-    char* current=(char*)malloc(1024);
-    for(int i=0;i<num-1;i++)
-    {
-        strcpy(current,va_arg(valist,char*));
-        strcat(current,&separator);
-        write(0,current,strlen(current));
-    }
-    strcpy(current,va_arg(valist,char*));
-    write(0,current,strlen(current));
-    free(current);
-    va_end(valist);
-}
-
 void consoleWriteLine(char* _Buf)
 {
     write(0,_Buf,strlen(_Buf));

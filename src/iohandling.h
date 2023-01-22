@@ -12,5 +12,4 @@ int readLine(int _FileHandle,char *_DstBuf);
 int readWord(int _FileHandle,char *_DstBuf,char separator);
 void skipLine(int _FileHandle);
 void consoleWrite(char* _Buf);
-void consoleWriteSeperated(char separator,int num,...);
 void consoleWriteLine(char* _Buf);
