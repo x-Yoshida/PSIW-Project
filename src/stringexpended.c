@@ -13,6 +13,18 @@ long strfind(char* string,char _c)
     return -1;
 }
 
+long strfindLast(char* string,char _c)
+{
+    long length = strlen(string);
+    for(long i=length;i>-1;i--)
+    {
+        if(string[i]==_c)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 
 char* substr(char* _Src,int start, int finish)
 {
@@ -56,4 +68,99 @@ char* intToStr(char* _Dst,int num)
     }
     revstr(_Dst);
     return _Dst;
+}
+
+
+char*** makeFifoVector(char ***strTab,int *size)
+{
+    (*size) = 1;
+    int i = 0;
+    char* tmp = (*strTab)[i++];
+    while (tmp)
+    {
+        if((tmp) && !strcmp(tmp,"|"))
+        {
+            (*size)++;
+            tmp=(*strTab)[i++];
+        }
+        tmp=(*strTab)[i++];
+    }
+    //i--;
+    i=0;
+    tmp = (*strTab)[i];
+
+    char*** fifoVector = (char***)malloc(((*size)+1)*sizeof(char**));
+    for(int j=0;j<*size;j++)
+    {
+        
+        int tmpSize = 0;
+        int startingIterator=i;
+        tmp = (*strTab)[i++];
+        if(tmp)
+        {
+            while(tmp && strcmp(tmp,"|"))
+            {
+                tmp=(*strTab)[i++];
+                tmpSize++;
+            }
+            fifoVector[j]=(char**)malloc((tmpSize+1)*sizeof(char*));
+            for(int k=0;k<tmpSize;k++)
+            {
+                fifoVector[j][k]=(char*)malloc(1024*sizeof(char));
+                memset(fifoVector[j][k],0,1024);
+            }
+            fifoVector[j][tmpSize]=NULL;
+            tmp=(*strTab)[startingIterator++];
+            int iterator=0;
+            while((tmp) && strcmp(tmp,"|"))
+            {
+                //printf("%s\n",tmp);
+                strcpy(fifoVector[j][iterator++],tmp);
+                tmp=(*strTab)[startingIterator++];
+            }
+            fifoVector[j][iterator]=NULL;
+            //printf("i: %d\n",i);
+            tmp=(*strTab)[i];
+        }
+
+        
+    }
+    fifoVector[*size] = NULL;
+    return fifoVector;
+}
+
+
+char** itemizeString(char* string,int *size)
+{
+    *size = 1;
+    for(int i=0;i<strlen(string);i++)
+    {
+        if(string[i]==' ')
+        {
+            (*size)++;
+        }
+    }
+    char** stringsTab = (char**)malloc(((*size)+1)*sizeof(char*));
+    for(int i=0;i<*size;i++)
+    {
+        stringsTab[i] = (char*)malloc(1024*sizeof(char));
+        memset(stringsTab[i],0,1024);
+    }
+    stringsTab[*size]=NULL;
+    int i = 0;
+    int j=0;
+    while (i<strlen(string))
+    {
+        int k=0;
+        while (string[i]!=' ')
+        {
+            stringsTab[j][k]=string[i];
+            i++;
+            k++;
+        }
+        i++;
+        j++;
+    }
+    
+    return stringsTab;
 }

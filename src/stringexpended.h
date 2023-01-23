@@ -10,6 +10,9 @@
 */
 long strfind(char* string,char _c);
 
+
+long strfindLast(char* string,char _c);
+
 /*
 * Makes substring of _Src by replacing it
 * and returns substring
@@ -20,4 +23,8 @@ char* substr(char* _Src ,int start, int finish);
 char* revstr(char* _Dst);
 
 char* intToStr(char* _Dst,int num);
+
+char** itemizeString(char* string,int *size);
+
+char*** makeFifoVector(char ***strTab,int *size);
 

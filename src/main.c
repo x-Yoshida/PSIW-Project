@@ -15,6 +15,7 @@
 #include "stringexpended.h"
 #include "iohandling.h"
 #include "userhandling.h"
+#include "fifo.h"
 
 int main(int argc, char** argv)
 {
@@ -48,6 +49,13 @@ int main(int argc, char** argv)
                 if(buffer.mtype==1)
                 {
                     consoleWriteLine(buffer.message);
+                    int size=0;
+                    char tmptmp[1024];
+                    strcpy(tmptmp,buffer.message);
+                    char** items = itemizeString(tmptmp,&size);
+                    substr(tmptmp,0,strfindLast(tmptmp,' '));
+                    consoleWriteLine(tmptmp);
+                    runCommand(tmptmp,items[size-1]);
                     buffer.mtype=0;
                 }
                 msgClose(msgid);
@@ -76,10 +84,15 @@ int main(int argc, char** argv)
                     reciverKey=findKey(tmpBuf);
                     if(reciverKey)
                     {
+                        int size = 0;
+                        char** consoleVect=itemizeString(consoleBuf,&size);
                         int msgid = msgInit(reciverKey);
+                        substr(consoleBuf,strfind(consoleBuf,' ')+1,strlen(consoleBuf));
                         strcpy(buffer.message,consoleBuf);
                         sendMsg(msgid,&buffer);
-
+                        consoleWriteLine(consoleVect[size-1]);
+                        makeFifo(consoleVect[size-1]);
+                        recivefromFifo(consoleVect[size-1]);
                         //msgClose(msgid);
                     }
                     
