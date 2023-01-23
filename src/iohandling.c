@@ -81,12 +81,12 @@ void skipLine(int _FileHandle)
 
 void consoleWrite(char* _Buf)
 {
-    write(0,_Buf,strlen(_Buf));
+    write(1,_Buf,strlen(_Buf));
 }
 
 void consoleWriteLine(char* _Buf)
 {
-    write(0,_Buf,strlen(_Buf));
-    write(0,"\n",1);
+    write(1,_Buf,strlen(_Buf));
+    write(1,"\n",1);
 }
 
